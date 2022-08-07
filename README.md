@@ -130,7 +130,7 @@ $ yosys
 yosys >
 ```
 Reading library files and design of multiplexer and synthesizing it and displaying gates
-...
+```
 > read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 > read_verilog good_mux.v
 > synth -top good_mux
