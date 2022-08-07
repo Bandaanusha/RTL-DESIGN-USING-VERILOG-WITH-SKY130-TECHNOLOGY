@@ -327,6 +327,7 @@ consider the digital circuit shown in Fig 17, changes in inputs a,b,c are propag
 4. synchronous set
 <br> D flip flop with asynchronous reset
 <br> Digital circuit
+![1d](https://user-images.githubusercontent.com/62790565/183303297-83df0773-6571-4edf-9e70-4bfad04e556e.jpeg)
 <br> Fig 18
 <br> Code of design d flip flop with asynchronous reset
 ```
@@ -349,6 +350,7 @@ Fig 19
 Fig 20
 <br> D flip flop with synchronous reset
 <br> Digital circuit
+![3d](https://user-images.githubusercontent.com/62790565/183303349-fa789de6-d17f-4743-b836-d3b67626e152.jpeg)
 <br> Fig 21
 <br> Code of design d flip flop with synchronous reset
 ```
@@ -371,6 +373,7 @@ Fig 22
 Fig 23
 <br> D flip flop with asynchronous set
 <br> Digital circuit
+![2d](https://user-images.githubusercontent.com/62790565/183303417-fee8f31b-495f-49b0-8fde-c86c8c738c5a.jpeg)
 <br> Fig 24
 <br> Code of design d flip flop with asynchronous set
 ```
@@ -394,6 +397,7 @@ Fig 26
 
 <br> D flip flop with asynchronous and synchronous reset
 <br> Digital circuit
+![4d](https://user-images.githubusercontent.com/62790565/183303394-359d3499-a278-4e2b-aa4e-fde6b7026bf4.jpeg)
 <br> Fig 27
 <br> Code of design d flip flop with asynchronous and synchronous reset
 ```
@@ -455,12 +459,33 @@ Synthesized circuit
 
 ## 3. Day 3 - combinational and sequential optimizations
 ### 3.1 Introduction to optimizations
+Combinational logic optimization is squeezing logic to get the most optimised design i.e. area and power savings. In can be done by 
+1. constant propagation (direct optimization)
+2. Boolean logic optimization can be achevied by K-map and Quine McKluskey
+<br> Constant propagation
+![co1](https://user-images.githubusercontent.com/62790565/183302138-d7a5e671-baa7-4c80-b707-dd2f0432b9c1.jpeg)
+Fig 34
 
+<br> Boolean Optimization
+![co2](https://user-images.githubusercontent.com/62790565/183302157-8dedbd2f-d0a5-4287-81de-fbdb4fc09e44.jpeg)
+Fig 35
 
+<br> Sequential logic optimization can be done by
+1.Basic - Sequential constant propagation
+2.Advanced - State optimization, Retiming, Sequential logic cloning (Floor Plan Aware Synthesis)
+<br>Sequential constant propagation
+![so1](https://user-images.githubusercontent.com/62790565/183302331-c213e6ff-028f-4423-b25d-554697b4434c.jpeg)
+Fig 36
 
+<br> State optimization - Optimization of unused states
 
+<br> Sequential logic cloning (Floor Plan Aware Synthesis)
+![so2](https://user-images.githubusercontent.com/62790565/183302341-bd2253cb-6ba6-4ac2-80dc-65ca163fa890.jpeg)
+Fig 37
 
-
+<br> Retiming
+![so3](https://user-images.githubusercontent.com/62790565/183302348-24f5ecda-5eea-41f8-a548-35869653fdb1.jpeg)
+Fig 38
 
 
 
