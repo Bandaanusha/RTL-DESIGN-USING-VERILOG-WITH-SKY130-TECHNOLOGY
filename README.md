@@ -82,15 +82,17 @@ Fig 4
 Yosys is a synthesizer, a tool used for converting the RTL to netlist.Fig 5 shows the flow of yosys,applying design and .lib files to yosys we get netlist as output.read_verilog command is used to read the design, read_liberty command to read the .lib file and write_verilog command to write out the netlist file.Netlist is representation of the design in form of cells present in .lib.
 ![5](https://user-images.githubusercontent.com/62790565/183275983-e5d109b6-a27e-4dc2-ab8b-1d9cacadafb6.jpeg)
 Fig 5
+Output of simulating by applying netlist and testbench to iverilog and viewing generated vcd file on gtkwave toolshould be same as output of simulating by applying design and testbench to iverilog and viewing generated vcd file on gtkwave provided testbench applied in both the cases should is same, then the sysnthesis is said to be verified.
 ![6](https://user-images.githubusercontent.com/62790565/183276366-111784a5-b222-4721-90f6-b44a21aa0112.jpeg)
 Fig 6
-Output of simulating by applying netlist and testbench to iverilog and viewing generated vcd file on gtkwave toolshould be same as output of simulating by applying design and testbench to iverilog and viewing generated vcd file on gtkwave provided testbench applied in both the cases should is same, then the sysnthesis is said to be verified.
 #### 1.3.2 SKY130RTL D1SK3 L2 Introduction to logic synthesis part1
 RTL design is a behavioral representation of the required specification .Synthesis is RTL to Gate level translation. the design is converted into gates and the connections are made between the gates. This gives out as a file called netlist.Fig 7 gives the illustration of synthesis
 ![7](https://user-images.githubusercontent.com/62790565/183277889-190764f8-0f55-462c-8226-6d74e1f8a031.jpeg)
+
 Fig 7
 .lib is a collection of logical modules.It includes basic logic gates like And, Or, Not, etc. Same gate has different flavours such has slow, medium, fast. 
 ![8](https://user-images.githubusercontent.com/62790565/183277894-226874e3-d83e-43c2-9e27-39dff657d03b.jpeg)
+
 Fig 8
 Consider the above digital circuit, the minimum clock period is given by the equation :
 ```
