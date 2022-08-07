@@ -31,6 +31,11 @@
     2.3.4 SKY130RTL D2SK3 L4 Lab flop synthesis simulations part2
     2.3.5 SKY130RTL D2SK3 L5 Intresting optimizations part1
     2.3.6 SKY130RTL D2SK3 L6 Intresting optimizations part2
+3. Day 3 - combinational and sequential optimizations
+ 3.1 Introduction to optimizations
+ 3.2 Combinational logic optimizations
+ 3.3 Sequential logic optimizations
+ 3.4 Sequential optimizations for unused outputs
 ```
 ## 1. Day1 - Introduction to Verilog RTL design and synthesis
 ### 1.1. SKY130RTL D1SK1 - Introduction to open-source simulator iverilog
@@ -311,6 +316,152 @@ The following commands are used to synthesize and to show gatelevel circuit of s
 <br> Module level synthesis is significant when there is multiple instantiation of same module.
 ### 2.3 SKY130RTL D2SK3 - Various Flop Coding Styles and optimization
 #### 2.3.1 SKY130RTL D2SK3 L1 Why Flops and Flop coding styles part1
+
+![17](https://user-images.githubusercontent.com/62790565/183291263-1754b75b-1e00-410f-b12a-11c683db9d6b.jpeg)
+
+consider the digital circuit shown in Fig 17, changes in inputs a,b,c are propagated to the output Y with propagation delay with a glitch. If there are more combinatinal circuits output of which is input to the other, there will more glitches in the output makes it unstable. Hence we need flops to store which restricts glitches in output as output changes with clock. Flops are initialized by set and reset inputs. set=1 sets the output to 1 and reset=1 sets the output to 0.
+<br> Four types of flop initialization by set and reset inputs
+1.asynchronous reset
+2. synchronous reset
+3. asynchronous set
+4. synchronous set
+<br> D flip flop with asynchronous reset
+<br> Digital circuit
+<br> Fig 18
+<br> Code of design d flip flop with asynchronous reset
+```
+module dff_asyncres ( input clk ,  input async_reset , input d , output reg q );
+always @ (posedge clk , posedge async_reset)
+begin
+	if(async_reset)
+		q <= 1'b0;
+	else	
+		q <= d;
+end
+endmodule
+```
+<br> Simulation result
+![ardff](https://user-images.githubusercontent.com/62790565/183292968-ca2b7d3b-5a64-400d-b99e-22680c7746d2.png)
+Fig 19
+
+<br> Synthesized circuit
+![d1](https://user-images.githubusercontent.com/62790565/183292995-bacbacbd-0b5d-4cb4-86f8-e73d2ebe0ed8.png)
+Fig 20
+<br> D flip flop with synchronous reset
+<br> Digital circuit
+<br> Fig 21
+<br> Code of design d flip flop with synchronous reset
+```
+module dff_syncres ( input clk , input async_reset , input sync_reset , input d , output reg q );
+always @ (posedge clk )
+begin
+	if (sync_reset)
+		q <= 1'b0;
+	else	
+		q <= d;
+end
+endmodule
+```
+<br> Simulation result
+![srd](https://user-images.githubusercontent.com/62790565/183293341-d9962e3b-0694-4423-ae1a-41742eb91c8d.png)
+Fig 22
+
+<br>  Synthesized circuit
+![d2](https://user-images.githubusercontent.com/62790565/183293370-17bfd9f9-f77a-4db3-a100-98b9edd0ace2.png)
+Fig 23
+<br> D flip flop with asynchronous set
+<br> Digital circuit
+<br> Fig 24
+<br> Code of design d flip flop with asynchronous set
+```
+module dff_async_set ( input clk ,  input async_set , input d , output reg q );
+always @ (posedge clk , posedge async_set)
+begin
+	if(async_set)
+		q <= 1'b1;
+	else	
+		q <= d;
+end
+endmodule
+```
+<br> Simulation result
+![asd](https://user-images.githubusercontent.com/62790565/183293778-ebc2de57-6199-4042-bdf1-d0938feac7df.png)
+Fig 25
+
+<br>  Synthesized circuit
+![d3](https://user-images.githubusercontent.com/62790565/183293821-f7783ead-27f0-4b77-aa47-d0ada542aa00.png)
+Fig 26
+
+<br> D flip flop with asynchronous and synchronous reset
+<br> Digital circuit
+<br> Fig 27
+<br> Code of design d flip flop with asynchronous and synchronous reset
+```
+module dff_asyncres_syncres ( input clk , input async_reset , input sync_reset , input d , output reg q );
+always @ (posedge clk , posedge async_reset)
+begin
+	if(async_reset)
+		q <= 1'b0;
+	else if (sync_reset)
+		q <= 1'b0;
+	else	
+		q <= d;
+end
+endmodule
+```
+<br> Simulation result
+![arsrd](https://user-images.githubusercontent.com/62790565/183294416-f292d862-2a1f-4fad-9cba-fcefedcde2bc.png)
+Fig 28
+
+<br> Synthesized circuit
+![d4](https://user-images.githubusercontent.com/62790565/183294460-90e5bb9a-dd85-4191-bd47-734f223fc6c3.png)
+Fig 29
+
+#### 2.3.5 SKY130RTL D2SK3 L5 Intresting optimizations part1
+This lab session deals with some automatic and interesting optimisations of the circuits based on logic. In the below example, multiplying a number with 2 doesn't need any additional hardware and only needs connecting the bits from a to y and grounding the LSB bit of y is enough and the same is realized by Yosys.
+
+![m2](https://user-images.githubusercontent.com/62790565/183295368-b59485b9-2fbd-443b-a67b-f32aec968272.jpeg)
+Fig 30
+
+```
+module mul2 (input [2:0] a, output [3:0] y);
+	assign y = a * 2;
+endmodule
+```
+Synthesized circuit
+![m1](https://user-images.githubusercontent.com/62790565/183295275-32f2c0f1-24c7-4c82-b710-129a6cd78ab0.png)
+Fig 31
+<br> Netlist
+Fig 32
+When it comes to multiplying with powers of 2, it just needs shifting as shown below:
+```
+5   *  2  =  10
+101          1010
+5   *  4  =  20
+101          10100
+5   *  8  =  40
+101          101000
+```
+Multiplying with 9
+![m3](https://user-images.githubusercontent.com/62790565/183296373-91d02f8b-90ae-4853-9c6d-207d6e5045f8.jpeg)
+Fig 33
+Code
+```
+module mul2 (input [2:0] a, output [5:0] y);
+	assign y = a * 9;
+endmodule
+```
+Synthesized circuit
+
+## 3. Day 3 - combinational and sequential optimizations
+### 3.1 Introduction to optimizations
+
+
+
+
+
+
+
 
 
 
