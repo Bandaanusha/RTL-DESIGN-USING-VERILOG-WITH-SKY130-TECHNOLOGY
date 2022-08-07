@@ -38,8 +38,8 @@ Simulator is tool used for simulating the design. iverilog is a open source simu
 #### 1.1.1. SKY130RTL D1SK1 L1 Introduction iverilog design and test bench
 Design is a verilog code intended for particular functionality to meet with the required specifications.TestBench is the setup to apply stimulus to the design to check its functionality. Fig 1 shows working of testbench.
 ![1](https://user-images.githubusercontent.com/62790565/183249511-3da7501f-e4a4-4fa0-90a3-cf6888604666.jpeg)
-Fig 1
-Simulator looks for the changes on the input signals, upon changes to the input the output is evaluated. Fig 2 shows iverilog based simulation flow, Applying Design and testbench to iverilog simulator generates value Change Dump (vcd) file indicates that any changes in the input are dumped to output. gtkwave tool is used to view the input and output waveforms.
+<br>Fig 1
+<br>Simulator looks for the changes on the input signals, upon changes to the input the output is evaluated. Fig 2 shows iverilog based simulation flow, Applying Design and testbench to iverilog simulator generates value Change Dump (vcd) file indicates that any changes in the input are dumped to output. gtkwave tool is used to view the input and output waveforms.
 ![2](https://user-images.githubusercontent.com/62790565/183249896-56e0d3bc-885d-40b6-8c9a-a75ccb72ca6a.jpeg)
 Fig 2
 ###  1.2  SKY130RTL D1SK2- Labs using iverilog and gtkwave
