@@ -90,7 +90,8 @@ RTL design is a behavioral representation of the required specification .Synthes
 ![7](https://user-images.githubusercontent.com/62790565/183277889-190764f8-0f55-462c-8226-6d74e1f8a031.jpeg)
 
 Fig 7
-.lib is a collection of logical modules.It includes basic logic gates like And, Or, Not, etc. Same gate has different flavours such has slow, medium, fast. 
+.lib is a collection of logical modules.It includes basic logic gates like And, Or, Not, etc. Same gate has different flavours such has slow, medium, fast.
+
 ![8](https://user-images.githubusercontent.com/62790565/183277894-226874e3-d83e-43c2-9e27-39dff657d03b.jpeg)
 
 Fig 8
