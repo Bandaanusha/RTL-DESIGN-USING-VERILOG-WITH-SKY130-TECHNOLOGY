@@ -16,6 +16,21 @@
     1.4.1 SKY130RTL D1SK4 L1 Lab3 yosys 1 good mux Part1
     1.4.1 SKY130RTL D1SK4 L2 Lab3 yosys 1 good mux Part2
     1.4.1 SKY130RTL D1SK4 L3 Lab3 yosys 1 good mux Part3
+ 2. Day 2-Timing libs, hierarchial vs flat synthesis and efficient flop coding styles
+  2.1 SKY130RTL D2SK1 -Introduction to timing.libs
+    2.1.1 SKY130RTL D2SK1 L1 Lab4 Introduction to dot lib part1
+    2.1.2 SKY130RTL D2SK1 L2 Lab4 Introduction to dot lib part2
+    2.1.3 SKY130RTL D2SK1 L3 Lab4 Introduction to dot lib part3
+  2.2 SKY130RTL D2SK2 - Hierarchial vs Flat Synthesis
+    2.2.1 SKY130RTL D2SK2 L1 Lab5 hierarchial vs flat synthesis part1
+    2.2.2 SKY130RTL D2SK2 L2 Lab5 hierarchial vs flat synthesis part2
+  2.3 SKY130RTL D2SK3 - Various Flop Coding Styles and optimization
+    2.3.1 SKY130RTL D2SK3 L1 Why Flops and Flop coding styles part1
+    2.3.2 SKY130RTL D2SK3 L2 Why Flops and Flop coding styles part2
+    2.3.3 SKY130RTL D2SK3 L3 Lab flop synthesis simulations part1
+    2.3.4 SKY130RTL D2SK3 L4 Lab flop synthesis simulations part2
+    2.3.5 SKY130RTL D2SK3 L5 Intresting optimizations part1
+    2.3.6 SKY130RTL D2SK3 L6 Intresting optimizations part2
 ```
 ## 1. Day1 - Introduction to Verilog RTL design and synthesis
 ### 1.1. SKY130RTL D1SK1 - Introduction to open-source simulator iverilog
@@ -104,3 +119,29 @@ Combinational delay in logic path determines the maximum speed of operation of d
 Thold_b < Tcq_a +Tcombi
 ```
 To ensure that there are n "HOLD" issues at DFF_B shown in Fig 8,  we need cells that work slowly. Hence we need cells that works fast to meet the required performance and we need cells that work slow to meet HOLD. This collection of different flavours of cells forms the .lib . Load in the Digital Logic circuit is capacitance. Faster the charging/ discharging of capacitance lesser the cell delay. To charge or discharge the capacitance fast, we need transistors capable of sourcing more current. Wide transistors offfers low delay but requires mre area and power. Narrow transistors requires less area and power but offers more delay. Hence faster cells comes with a penality of area and power.
+### 1.4 SKY130RTL D1SK4 Labs using Yosys and SKY130PDK's
+#### 1.4.1 SKY130RTL D1SK4 L1 Lab3 yosys 1 good mux Part1
+Moving into VLSI to sky130RTLDesignAndSynthesisWorkshop to verilog_files and then invoking yosys
+```
+$ cd VLSI
+$ cd sky130RTLDesignAndSynthesisWorkshop
+$ cd verilog_files
+$ yosys
+yosys >
+```
+Reading library files and design of multiplexer and synthesizing it and displaying gates
+...
+> read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+> read_verilog good_mux.v
+> synth -top good_mux
+> abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+> show
+```
+![Screenshot from 2022-08-07 12-13-20](https://user-images.githubusercontent.com/62790565/183279565-365fd63f-2081-43d2-952d-8ef6bf9b1ce3.png)
+Generating netlist and displaying it
+```
+> write_verilog -noattr good_mux_netlist.v
+> !gvim good_mux_netlist.v
+```
+Fig9 shows the netlist
+
