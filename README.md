@@ -137,7 +137,9 @@ Reading library files and design of multiplexer and synthesizing it and displayi
 > abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 > show
 ```
+
 ![Screenshot from 2022-08-07 12-13-20](https://user-images.githubusercontent.com/62790565/183279565-365fd63f-2081-43d2-952d-8ef6bf9b1ce3.png)
+
 Generating netlist and displaying it
 ```
 > write_verilog -noattr good_mux_netlist.v
