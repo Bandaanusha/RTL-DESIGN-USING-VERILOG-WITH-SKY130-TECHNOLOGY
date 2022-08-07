@@ -96,21 +96,21 @@ Fig 4
 #### 1.3.1 SKY130RTL D1SK3 L1 Introduction to yosys
 Yosys is a synthesizer, a tool used for converting the RTL to netlist.Fig 5 shows the flow of yosys,applying design and .lib files to yosys we get netlist as output.read_verilog command is used to read the design, read_liberty command to read the .lib file and write_verilog command to write out the netlist file.Netlist is representation of the design in form of cells present in .lib.
 ![5](https://user-images.githubusercontent.com/62790565/183275983-e5d109b6-a27e-4dc2-ab8b-1d9cacadafb6.jpeg)
-Fig 5
-Output of simulating by applying netlist and testbench to iverilog and viewing generated vcd file on gtkwave toolshould be same as output of simulating by applying design and testbench to iverilog and viewing generated vcd file on gtkwave provided testbench applied in both the cases should is same, then the sysnthesis is said to be verified.
+<br>Fig 5
+<br>Output of simulating by applying netlist and testbench to iverilog and viewing generated vcd file on gtkwave toolshould be same as output of simulating by applying design and testbench to iverilog and viewing generated vcd file on gtkwave provided testbench applied in both the cases should is same, then the sysnthesis is said to be verified.
 ![6](https://user-images.githubusercontent.com/62790565/183276366-111784a5-b222-4721-90f6-b44a21aa0112.jpeg)
 Fig 6
 #### 1.3.2 SKY130RTL D1SK3 L2 Introduction to logic synthesis part1
 RTL design is a behavioral representation of the required specification .Synthesis is RTL to Gate level translation. the design is converted into gates and the connections are made between the gates. This gives out as a file called netlist.Fig 7 gives the illustration of synthesis
 ![7](https://user-images.githubusercontent.com/62790565/183277889-190764f8-0f55-462c-8226-6d74e1f8a031.jpeg)
 
-Fig 7
-.lib is a collection of logical modules.It includes basic logic gates like And, Or, Not, etc. Same gate has different flavours such has slow, medium, fast.
+<br>Fig 7
+<br>.lib is a collection of logical modules.It includes basic logic gates like And, Or, Not, etc. Same gate has different flavours such has slow, medium, fast.
 
 ![8](https://user-images.githubusercontent.com/62790565/183277894-226874e3-d83e-43c2-9e27-39dff657d03b.jpeg)
 
-Fig 8
-Consider the above digital circuit, the minimum clock period is given by the equation :
+<br>Fig 8
+<br>Consider the above digital circuit, the minimum clock period is given by the equation :
 ```
 Tclk > Tcq-a + Tcombi +Tsetup-b
 ```
@@ -146,4 +146,174 @@ Generating netlist and displaying it
 > !gvim good_mux_netlist.v
 ```
 Fig9 shows the netlist
+## 2. Day 2-Timing libs, hierarchial vs flat synthesis and efficient flop coding styles
+### 2.1 SKY130RTL D2SK1 -Introduction to timing.libs
+#### 2.1.1 SKY130RTL D2SK1 L1 Lab4 Introduction to dot lib part1
+This lab guides us through the .lib files where we have all the gates coded in. According to the below parameters the libraries will be characterized to model the variations.sky130_fd_sc_hd__tt_025C_1v80 named library is 130 nm library typical process at 25 degree celsius and at 1v.
+![10](https://user-images.githubusercontent.com/62790565/183284976-2063f72b-86e6-4560-ae0e-17af548b3fbd.JPG)
+<br> Fig 10
+<br> With in the lib file, the gates are delared as follows to meet the variations due to process, temperatures and voltages.
+With in the lib file, the gates are declared as follows to meet the variations due to process, temperatures and voltages.
+![Screenshot from 2022-08-07 15-32-47](https://user-images.githubusercontent.com/62790565/183285736-6d66015a-5f6d-484c-8767-52429e2aacdf.png)
+<br> Fig 11
+<br> For the above example, for all the 2 combinations i.e 2^2 (2 is no.of  input variables), the delay, power and all the related parameters for each gate are mentioned.
+<br> This image displays the power consumtion comparision.
+![166107259-6fa398a4-2099-4da3-9b93-818c2c3f2404](https://user-images.githubusercontent.com/62790565/183285918-594e9856-9207-4220-8e1f-6a1e6a933152.JPG)
+<br> Fig 12
+<br> Below image is the delay order for the different flavor of gates.
+![166187423-d21465e1-abc3-4ad0-a534-60f8e706ab6f](https://user-images.githubusercontent.com/62790565/183285933-a9fb50a8-493d-4c6a-b198-3db670c4ff35.JPG)
+<br> Fig 13
+### 2.2 SKY130RTL D2SK2 - Hierarchial vs Flat Synthesis
+#### 2.2.1 SKY130RTL D2SK2 L1 Lab5 hierarchial vs flat synthesis part1
+Design having multiple modules in it are analyzed here.Consider the multiple_modules.v design consisting two submodules. code of this design is :
+```
+module sub_module2 (input a, input b, output y);
+	assign y = a | b;
+endmodule
+
+module sub_module1 (input a, input b, output y);
+	assign y = a&b;
+endmodule
+
+
+module multiple_modules (input a, input b, input c , output y);
+	wire net1;
+	sub_module1 u1(.a(a),.b(b),.y(net1));  //net1 = a&b
+	sub_module2 u2(.a(net1),.b(c),.y(y));  //y = net1|c ,ie y = a&b + c;
+endmodule
+```
+To invoke yosys and synthesize use the following commands:
+```
+$ yosys
+> read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+> read_verilog multiple_modules.v
+> synth -top multiple_modules
+> abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+To display gatelevel design use the following command:
+```
+> show multiple_modules
+```
+This displays hierarchial design as shown in Fig
+![Screenshot from 2022-08-07 15-58-25](https://user-images.githubusercontent.com/62790565/183287346-cce344ba-1fd5-41c7-b54d-5634eac064e6.png)
+<br> Fig 14
+<br> To generate netlist and display is use the following commands
+```
+> write_verilog -noattr multiple_modules_hier_netlist.v
+> !gvim good_mux_netlist.v
+```
+<br> The synthesizer considers the module hierarcy and does the mapping accordting to instantiation. Here is the hierarchical netlist code for the multiple_modules:
+```
+module multiple_modules(a, b, c, y);
+	  input a;
+	 input b;
+	 input c;
+	  wire net1;
+	 output y;
+  sub_module1 u1 (.a(a),.b(b),.y(net1) );
+  sub_module2 u2 (.a(net1),.b(c),.y(y));
+endmodule
+
+module sub_module1(a, b, y);
+ wire _0_;
+ wire _1_;
+ wire _2_;
+ input a;
+ input b;
+ output y;
+ sky130_fd_sc_hd__and2_0 _3_ (.A(_1_),.B(_0_),.X(_2_));
+ assign _1_ = b;
+ assign _0_ = a;
+ assign y = _2_;
+endmodule
+
+module sub_module2(a, b, y);
+wire _0_;
+ wire _1_;
+ wire _2_;
+input a;
+input b;
+ output y;
+ sky130_fd_sc_hd__lpflow_inputiso1p_1 _3_ (.A(_1_),.SLEEP(_0_),.X(_2_) );
+ assign _1_ = b;
+ assign _0_ = a;
+ assign y = _2_;
+endmodule
+```
+#### 2.2.2 SKY130RTL D2SK2 L2 Lab5 hierarchial vs flat synthesis part2
+The following commands are used to flatten the hierarchy and display gate level circuits:
+```
+> flatten
+> show
+```
+![Screenshot from 2022-08-07 16-12-44](https://user-images.githubusercontent.com/62790565/183287459-a3cd6edd-60cf-4802-ae21-b959de02f371.png)
+<br> Fig 15
+<br> To generate netlist and display is use the following commands
+```
+> write_verilog -noattr multiple_modules_flatten_netlist.v
+> !gvim good_mux_netlist.v
+```
+<br> In flattened netlist, the hierarcies are flattend out and there is single module i.e, gates are instantiated directly instead of sub_modules. Here is the flattened netlist code for the multiple_modules:
+```
+module multiple_modules(a, b, c, y);
+	 wire _0_;
+	 wire _1_;
+	 wire _2_;
+	 wire _3_;
+	 wire _4_;
+	 wire _5_;
+	 input a;
+	 input b;
+	 input c;
+	 wire net1;
+	 wire \u1.a ;
+	 wire \u1.b ;
+	 wire \u1.y ;
+	 wire \u2.a ;
+	 wire \u2.b ;
+	 wire \u2.y ;
+	output y;
+	 sky130_fd_sc_hd__and2_0 _6_ (
+	  .A(_1_),
+	 .B(_0_),
+	 .X(_2_)
+	);
+	 sky130_fd_sc_hd__lpflow_inputiso1p_1 _7_ (
+	  .A(_4_),
+	  .SLEEP(_3_),
+	  .X(_5_)
+	 );
+	 assign _4_ = \u2.b ;
+	 assign _3_ = \u2.a ;
+	 assign \u2.y  = _5_;
+	 assign \u2.a  = net1;
+	 assign \u2.b  = c;
+	 assign y = \u2.y ;
+	 assign _1_ = \u1.b ;
+	 assign _0_ = \u1.a ;
+	 assign \u1.y  = _2_;
+	 assign \u1.a  = a;
+	 assign \u1.b  = b;
+	 assign net1 = \u1.y ;
+	endmodule
+```
+Module level synthesis
+The following commands are used to synthesize and to show gatelevel circuit of submodule1 of multiple_modules.v design
+```
+> read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+> read_verilog multiple_modules.v
+> synth -top submodule1
+> abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+> show
+```
+![Screenshot from 2022-08-07 16-52-44](https://user-images.githubusercontent.com/62790565/183288320-e6233a10-c27f-407a-adf9-5e9f635a3542.png)
+<br> Fig 16
+<br> Module level synthesis is significant when there is multiple instantiation of same module.
+### 2.3 SKY130RTL D2SK3 - Various Flop Coding Styles and optimization
+#### 2.3.1 SKY130RTL D2SK3 L1 Why Flops and Flop coding styles part1
+
+
+
+
+
 
