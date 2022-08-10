@@ -1,44 +1,38 @@
 # RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY
 ## Table of Contents
 ```
- 1. Day1 - Introduction to Verilog RTL design and synthesis
-  1.1. SKY130RTL D1SK1 - Introduction to open-source simulator iverilog
-   1.1.1 SKY130RTL D1SK1 L1 Introduction iverilog design and test bench
-  1.2  SKY130RTL D1SK2- Labs using iverilog and gtkwave
-    1.2.1 SKY130RTL D1SK2 L1 Lab1 introduction to lab
-    1.2.2 SKY130RTL D1SK2 L2 Lab2 introduction to iverilog gtkwave part1
-    1.2.3 SKY130RTL D1SK2 L3 Lab2 introduction to iverilog gtkwave part2
-  1.3 SKY130RTL D1SK3 Introduction to Yosys and Logic synthesis
-    1.3.1 SKY130RTL D1SK3 L1 Introduction to yosys
-    1.3.2 SKY130RTL D1SK3 L2 Introduction to logic synthesis part1
-    1.3.3 SKY130RTL D1SK3 L3 Introduction to logic synthesis part2
- 1.4 SKY130RTL D1SK4 Labs using Yosys and SKY130PDK's
-    1.4.1 SKY130RTL D1SK4 L1 Lab3 yosys 1 good mux Part1
-    1.4.1 SKY130RTL D1SK4 L2 Lab3 yosys 1 good mux Part2
-    1.4.1 SKY130RTL D1SK4 L3 Lab3 yosys 1 good mux Part3
- 2. Day 2-Timing libs, hierarchial vs flat synthesis and efficient flop coding styles
-  2.1 SKY130RTL D2SK1 -Introduction to timing.libs
-    2.1.1 SKY130RTL D2SK1 L1 Lab4 Introduction to dot lib part1
-    2.1.2 SKY130RTL D2SK1 L2 Lab4 Introduction to dot lib part2
-    2.1.3 SKY130RTL D2SK1 L3 Lab4 Introduction to dot lib part3
-  2.2 SKY130RTL D2SK2 - Hierarchial vs Flat Synthesis
-    2.2.1 SKY130RTL D2SK2 L1 Lab5 hierarchial vs flat synthesis part1
-    2.2.2 SKY130RTL D2SK2 L2 Lab5 hierarchial vs flat synthesis part2
-  2.3 SKY130RTL D2SK3 - Various Flop Coding Styles and optimization
-    2.3.1 SKY130RTL D2SK3 L1 Why Flops and Flop coding styles part1
-    2.3.2 SKY130RTL D2SK3 L2 Why Flops and Flop coding styles part2
-    2.3.3 SKY130RTL D2SK3 L3 Lab flop synthesis simulations part1
-    2.3.4 SKY130RTL D2SK3 L4 Lab flop synthesis simulations part2
-    2.3.5 SKY130RTL D2SK3 L5 Intresting optimizations part1
-    2.3.6 SKY130RTL D2SK3 L6 Intresting optimizations part2
-3. Day 3 - combinational and sequential optimizations
- 3.1 Introduction to optimizations
- 3.2 Combinational logic optimizations
- 3.3 Sequential logic optimizations
- 3.4 Sequential optimizations for unused outputs
- 
-```
-## 1. Day1 - Introduction to Verilog RTL design and synthesis
+ [1. Day 1 - Introduction to Verilog RTL design and synthesis]
+  * [1.1. Introduction to open-source simulator iverilog]
+    - [1.1.1. Introduction iverilog design and test bench]
+  * [1.2.  Labs using iverilog and gtkwave]
+  * [1.3. Introduction to Yosys and Logic synthesis]
+    - [1.3.1. Introduction to yosys]
+    - [1.3.2. Introduction to logic synthesis]
+  * [1.4.Labs using Yosys and SKY130PDK's]
+ [2. Day 2 -Timing libs, hierarchial vs flat synthesis and efficient flop coding styles]
+  * [2.1. Introduction to timing.libs]
+    - [2.1.1. Introduction to dot lib]
+  * [2.2. Hierarchial vs Flat Synthesis]
+    - [2.2.1. Lab on hierarchial vs flat synthesis part1]
+    - [2.2.2. Lab on hierarchial vs flat synthesis part2]
+  * [2.3. Various Flop Coding Styles and optimization]
+    - [2.3.1. SKY130RTL D2SK3 L1 Why Flops and Flop coding styles]
+    - [2.3.2. Labs on flop synthesis simulations]
+    - [2.3.3. Intresting optimizations]
+[3. Day 3 - combinational and sequential optimizations]
+ * [3.1. Introduction to optimizations]
+ * [3.2. Combinational logic optimizations]
+ * [3.3. Sequential logic optimizations]
+ * [3.4. Sequential optimizations for unused outputs]
+[4. Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch]
+ * [4.1. GLS, Synthesis-Simulation mismatch and Blocking, Non-blocking statements]
+   - [4.1.1. GLS Concepts And Flow Using Iverilog]
+   - [4.1.2. Synthesis Simulation Mismatch]
+   - [4.1.3.Blocking and Non-Blocking statements in verilog]
+ * [4.2. Labs on GLS and synthesis-simulation mismatch]
+ * [4.3. Lab on Synthesis Simulation Mismatch for Blocking Statement
+ [5.DAY5- if,   - Introduction to Verilog RTL design and synthesis]
+ ```
 ### 1.1. SKY130RTL D1SK1 - Introduction to open-source simulator iverilog
 Simulator is tool used for simulating the design. iverilog is a open source simulator. Simulating Register transfer level (RTL) design checks adherence of RTL design to specifications. 
 #### 1.1.1. SKY130RTL D1SK1 L1 Introduction iverilog design and test bench
