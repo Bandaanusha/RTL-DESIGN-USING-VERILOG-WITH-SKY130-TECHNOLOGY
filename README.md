@@ -744,7 +744,7 @@ There are three main reasons for Synthesis Simulation Mismatch:
 
 <br>Missing sensitivity list in always block:
 
-<br>If the consider - Example-2, we can see the only sel is mentioned in the sensitivity list. During the simulation, the waveforms will resemble a latched output but the simulation of netlist will not infer this as the synthesizer will only look at the statements with in the procedural block and not the sensitivity list.As the synthesizer doen't look for sensitivity list and it looks only for the statements in procedural block, it infers correct circuit and if we simulate the netlist code, there will be a synthesis simulation mismatch.
+<br>If the consider - Example-2, we can see the only sel is mentioned in the sensitivity list. During the simulation, the waveforms will resemble a latched output but the simulation of netlist will not infer this as the synthesizer will only look at the statements with in the procedural block and not the sensitivity list.As the synthesizer doesn't look for sensitivity list and it looks only for the statements in procedural block, it infers correct circuit and if we simulate the netlist code, there will be a synthesis simulation mismatch.
 <br>To avoid the synthesis and simulation mismatch. It is very important to check the behaviour of the circuit first and then match it with the expected output seen in simulation and make sure there are no synthesis and simulation mismatches. This is why we use GLS.
 
 #### 4.1.3 Blocking and Non-Blocking statements in verilog
@@ -1025,7 +1025,138 @@ For Loop
 <br>For Generate can be used to instantiate any number of sub modules with in a top module. For example, if we need a 32 bit ripple carry adder, instead of instantiating 32 full adders, we can write a generate for loop and connect the full adders appropriately.	
 	
 ####5.5.1. Labs on for loop and for generate
+Example 1-Mux using generate
+<br>Here for loop is used to design a 4:1 mux. This can also be written using case or if else block, however, for a large size mux, only for loop model is feasible.
+<br>Code
+```
+module mux_for (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
+	wire [3:0] i_int;
+	assign i_int = {i3,i2,i1,i0};
+	integer k;
+always @ (*)
+	begin
+	for(k = 0; k < 4; k=k+1) begin
+		if(k == sel)
+		y = i_int[k];
+		end
+	end
+endmodule
+```
+<br>Simulation
+![for1](https://user-images.githubusercontent.com/62790565/183915788-23eb8eda-30c8-4c12-87db-f7ab479d8fc0.png)
+<br>Fig 71
 
-	
+<br>Synthesis
+![sfor1](https://user-images.githubusercontent.com/62790565/183915538-2a48e0d9-d804-424b-974f-4e035011cf73.png)
+<br>Fig 72	
 
+<br>Netlist simulation
+![nfor1](https://user-images.githubusercontent.com/62790565/183915647-8d801fc6-bfbc-406f-a3c4-97e25cf01ea4.png
+<br>Fig 73	
+
+<br>Example 2-Demux using case
+<br>Code
+```
+module demux_case (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
+reg [7:0]y_int;
+assign {o7,o6,o5,o4,o3,o2,o1,o0} = y_int;
+integer k;
+always @ (*)
+begin
+y_int = 8'b0;
+case(sel)
+	3'b000 : y_int[0] = i;
+	3'b001 : y_int[1] = i;
+	3'b010 : y_int[2] = i;
+	3'b011 : y_int[3] = i;
+	3'b100 : y_int[4] = i;
+	3'b101 : y_int[5] = i;
+	3'b110 : y_int[6] = i;
+	3'b111 : y_int[7] = i;
+endcase
+end
+endmodule
+```
+
+<br>Simulation
+![for2](https://user-images.githubusercontent.com/62790565/183915810-5f2f6f8d-d92d-4f6e-9597-b94b155acd94.png)	
+<br>Fig 74
+
+<br>Synthesis
+![sfor2](https://user-images.githubusercontent.com/62790565/183915571-85b16122-23fd-4061-aa74-0bd248341e79.png)
+<br>Fig 75
+
+<br>Netlist Simulation
+![nfor2](https://user-images.githubusercontent.com/62790565/183915741-c5906cab-0a76-4088-8c30-e02a10d7e692.png)
+<br>Fig 76
+
+<br>Example 3-Demux using generate	
+<br>The code in above example is big and also there is a chance of human error wile writing the code. However, using for loop as shown below, this drawback can be elimiated to a great extent.
+<br>Code
+```
+module demux_generate (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
+reg [7:0]y_int;
+assign {o7,o6,o5,o4,o3,o2,o1,o0} = y_int;
+integer k;
+always @ (*)
+begin
+	y_int = 8'b0;
+	for(k = 0; k < 8; k++) begin
+		if(k == sel)
+		y_int[k] = i;
+	end
+end
+endmodule	
+```
+
+<br>Simulation
+![for3](https://user-images.githubusercontent.com/62790565/183915829-5006c4e7-e206-4da4-aa9f-2bd75c894514.png)
+<br>Fig 77
+
+<br>Synthesis
+![sfor3](https://user-images.githubusercontent.com/62790565/183915582-59ef95a8-b82b-400f-8c6c-ca7e28f39b1d.png)
+<br>Fig 78
+
+<br>Netlist Simulation
+![nfor3](https://user-images.githubusercontent.com/62790565/183915756-d7efe8d6-550c-41b4-89f4-de6fec5c84b3.png)
+<br>Fig 79	
 	
+<br>Example 4-	Ripple carry adder using full adder
+<br>In this Ripple carry adder example, unlike instantiating fulladder for 8 times, generate for loop is used to instantiate the fulladder for 7 times and only for first full adder, it is instantiated seperately. Using the same code, just by changing bus sizes and condition of for loop, we can design any required size of ripple carry adder.
+<br>Code
+```
+module rca (input [7:0] num1 , input [7:0] num2 , output [8:0] sum);
+wire [7:0] int_sum;
+wire [7:0]int_co;
+
+genvar i;
+generate
+	for (i = 1 ; i < 8; i=i+1) begin
+		fa u_fa_1 (.a(num1[i]),.b(num2[i]),.c(int_co[i-1]),.co(int_co[i]),.sum(int_sum[i]));
+	end
+
+endgenerate
+fa u_fa_0 (.a(num1[0]),.b(num2[0]),.c(1'b0),.co(int_co[0]),.sum(int_sum[0]));
+
+
+assign sum[7:0] = int_sum;
+assign sum[8] = int_co[7];
+endmodule
+
+module fa (input a , input b , input c, output co , output sum);
+endmodule
+```	
+<br>Simulation		
+![for4](https://user-images.githubusercontent.com/62790565/183915843-f9c979d0-b343-4f37-857b-147a23674d7d.png)
+<br>Fig 80
+
+<br>Synthesis
+![sfor4](https://user-images.githubusercontent.com/62790565/183920788-0a65e949-dd77-4557-855a-bc52935c5c0c.png)
+<br>Fig 81
+
+<br>Netlist Simulation
+![nfor4](https://user-images.githubusercontent.com/62790565/183920762-84191856-728b-4551-8660-2dfa4422e6da.png) 
+<br>Fig 82
+
+## Word of Thanks
+I would like to thanks the team of VLSI System Design and Chipspirit for the collaborative workshop. The sessions are well structure and I'm looking forward for future events. My special thanks to Mr. Kunal and Mr. Shon Taware for helping us out with the flow and technical issues. I wish VSD team and Chipspirit team all the very best for your MAKE IN INDIA vision.		
