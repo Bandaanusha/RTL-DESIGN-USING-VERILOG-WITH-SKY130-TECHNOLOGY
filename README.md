@@ -463,27 +463,32 @@ Combinational logic optimization is squeezing logic to get the most optimised de
 1. constant propagation (direct optimization)
 2. Boolean logic optimization can be achevied by K-map and Quine McKluskey
 <br> Constant propagation
+Consider following iilustration of combinational circuit with A, B, C as inputs and Y as output. If there is constant propagation '0' through input A then circuit can be modified as not gate and the number of MOS transistors required decreases, there by optimizing power and area.
 ![co1](https://user-images.githubusercontent.com/62790565/183302138-d7a5e671-baa7-4c80-b707-dd2f0432b9c1.jpeg)
 Fig 34
 
-<br> Boolean Optimization
+<br>Boolean Optimization
+Boolean optimization can be done in two ways one is K- map and the other is Quine McKluskey method.Consider following illustration of combinational circuit, optimizing boolean function minimized the number of gates used, hence optimized area and power used.
 ![co2](https://user-images.githubusercontent.com/62790565/183302157-8dedbd2f-d0a5-4287-81de-fbdb4fc09e44.jpeg)
 Fig 35
 
-<br> Sequential logic optimization can be done by
-1.Basic - Sequential constant propagation
-2.Advanced - State optimization, Retiming, Sequential logic cloning (Floor Plan Aware Synthesis)
+<br>Sequential logic optimization can be done by
+<br>1.Basic - Sequential constant propagation
+<br>2.Advanced - State optimization, Retiming, Sequential logic cloning (Floor Plan Aware Synthesis)
 <br>Sequential constant propagation
+Consider the following illustration of sequential ciruit, here as the input D=0, for any value of reset the output Q=0, hence due to sequential constant propagation of Q=0 results in constant output Y=1. This optimizes the resources used.
 ![so1](https://user-images.githubusercontent.com/62790565/183302331-c213e6ff-028f-4423-b25d-554697b4434c.jpeg)
 Fig 36
 
-<br> State optimization - Optimization of unused states
+<br>State optimization - Optimization of unused states
 
 <br> Sequential logic cloning (Floor Plan Aware Synthesis)
+Consider following illustration of sequential circuit, flip flops B and C are at long ditsance from flip flop A hence there is large delay of reachhing output from A to B and C. If there is huge slack at input of flip flop A then flip flop A can be cloned aas two copies and can be placed near to flip flop B and C. This optimizes the time.
 ![so2](https://user-images.githubusercontent.com/62790565/183302341-bd2253cb-6ba6-4ac2-80dc-65ca163fa890.jpeg)
 Fig 37
 
-<br> Retiming
+<br>Retiming
+Consider following illustration of sequential ciruit.Here we can see that the combinatinal circuit between flipflop A & B  and B & C are different. Speed of operation depends on low delay circuit. Hence by retiming if we distribute logic in such a way that both combinational circuits between flip flop A & B and B & C have almotst same delay speed of operation increases and hence performance of the sequential circuit increases.
 ![so3](https://user-images.githubusercontent.com/62790565/183302348-24f5ecda-5eea-41f8-a548-35869653fdb1.jpeg)
 Fig 38
 
