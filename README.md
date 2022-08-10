@@ -492,6 +492,383 @@ Consider following illustration of sequential ciruit.Here we can see that the co
 ![so3](https://user-images.githubusercontent.com/62790565/183302348-24f5ecda-5eea-41f8-a548-35869653fdb1.jpeg)
 Fig 38
 
+### 3.2 Combinational logic optimizations
+
+<br>Example 1
+<br>Code
+```
+module opt_check (input a , input b , output y);
+	assign y = a?b:0;
+endmodule
+
+```
+<br>Commands for synthesis
+```
+>read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>read_verilog opt_check.v
+>synth -top opt_check
+>opt_clean -purge
+>abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>show
+```
+
+<br>Optimized circuit
+
+![o1](https://user-images.githubusercontent.com/62790565/183862125-7921cbd6-d206-4f2f-b4cd-31fd0eaf7d7c.png)
+<br>Fig 39
+
+<br>Example 2
+<br>Code
+```
+module opt_check2 (input a , input b , output y);
+	assign y = a?1:b;
+endmodule
+
+```
+<br>Commands for synthesis
+```
+>read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>read_verilog opt_check2.v
+>synth -top opt_check2
+>opt_clean -purge
+>abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>show
+```
+<br>Optimized circuit
+
+![o2](https://user-images.githubusercontent.com/62790565/183862455-0ed0cd9c-5e7f-42a0-9d52-88d146d3e217.png)
+<br>Fig 40
+
+<br>Example 3
+<br>Code
+```
+module opt_check3 (input a , input b, input c , output y);
+	assign y = a?(c?b:0):0;
+endmodule
+```
+<br>Commands for synthesis
+```
+>read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>read_verilog opt_check3.v
+>synth -top opt_check3
+>opt_clean -purge
+>abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>show
+```
+<br>Optimized circuit
+![o3](https://user-images.githubusercontent.com/62790565/183862935-d1d0001d-f9df-4365-b6fd-20a825b4de50.png)
+<br>Fig 41
+
+<br>Example 4
+<br>Code
+```
+module opt_check4 (input a , input b , input c , output y);
+	assign y = a?(b?(a & c ):c):(!c);
+endmodule
+```
+<br>Commands for synthesis
+```
+>read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>read_verilog opt_check4.v
+>synth -top opt_check4
+>opt_clean -purge
+>abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>show
+```
+<br>Optimized circuit
+![o4](https://user-images.githubusercontent.com/62790565/183863676-5847fc4d-a30c-46b8-b4c8-9a5d052f6a6a.png)
+<br>Fig 42
+
+<br>Example 5
+<br>Code
+```
+module sub_module(input a , input b , output y);
+	assign y = a & b;
+endmodule
+
+module multiple_module_opt2(input a , input b , input c , input d , output y);
+	wire n1,n2,n3;
+	sub_module U1 (.a(a) , .b(1'b0) , .y(n1));
+	sub_module U2 (.a(b), .b(c) , .y(n2));
+	sub_module U3 (.a(n2), .b(d) , .y(n3));
+	sub_module U4 (.a(n3), .b(n1) , .y(y));
+endmodule
+```
+<br>Commands for synthesis
+```
+>read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>read_verilog opt_check.v
+>synth -top opt_check
+>flatten
+>opt_clean -purge
+>abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>show
+```
+<br>Optimized circuit
+![mmo](https://user-images.githubusercontent.com/62790565/183864423-6e2056c5-46a0-4c8e-b6f8-f700116fb888.png)
+<br>Fig 43
+
+###3.3 Sequential logic optimizations
+<br>Example 1
+<br>Code
+```
+module dff_const1(input clk, input reset, output reg q);
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+			q <= 1'b0;
+		else
+			q <= 1'b1;
+	end
+endmodule
+```
+<br>Commands for synthesis
+```
+>read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>read_verilog dff_const1.v
+>synth -top dff_const1
+>dfflibmap -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>show
+```
+<br>Simulated waveforms
+![so1](https://user-images.githubusercontent.com/62790565/183865775-ea29aebd-1521-4e4a-9b59-932ec657fa44.png)
+<br>Fig 44
+
+<br>Optimized circuit
+![soo1](https://user-images.githubusercontent.com/62790565/183866124-e8f556e5-420d-4802-86f8-54c973fbe2d4.png)
+<br>Fig 45
+
+<br>Example 2
+<br>Code
+```
+module dff_const2(input clk, input reset, output reg q);
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+			q <= 1'b1;
+		else
+			q <= 1'b1;
+	end
+endmodule
+```
+<br>Simulated waveforms
+![so2](https://user-images.githubusercontent.com/62790565/183866883-9b399b1b-8fd2-4256-82b9-4cf4319be366.png)
+<br>Fig 46
+
+<br>Commands for synthesis
+```
+>read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>read_verilog dff_const2.v
+>synth -top dff_const2
+>dfflibmap -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>show
+```
+<br>Optimized circuit
+<br>![soo2](https://user-images.githubusercontent.com/62790565/183867774-6acf2986-e0c8-404c-8fc9-64e7230225a6.png)
+<br>Fig 47
+
+Example 3
+<Code>
+```
+module dff_const3(input clk, input reset, output reg q);
+	reg q1;
+
+	always @(posedge clk, posedge reset)
+	begin
+		if(reset)
+		begin
+			q <= 1'b1;
+			q1 <= 1'b0;
+		end
+		else
+		begin
+			q1 <= 1'b1;
+			q <= q1;
+		end
+	end
+	endmodule
+```
+
+<br>Simulated waveforms
+![so3](https://user-images.githubusercontent.com/62790565/183867649-ddb6aeb4-a52d-4d7c-b2ff-e890740dec8e.png)
+<br>Fig 4
+
+<br>Commands for synthesis
+```
+>read_liberty -lib /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>read_verilog dff_const3.v
+>synth -top dff_const3
+>dfflibmap -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>abc -liberty /home/anusha/VLSI/sky130RTLDesignAndSynthesisWorkshop/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+>show
+```
+<br>Optimized circuit
+![soo3](https://user-images.githubusercontent.com/62790565/183874123-692be01e-de1c-4d7a-95f7-8d0a76134168.png)
+<br>Fig 49
+
+###3.4 Sequential optimizations for unused outputs
+Example 1
+<br>Code
+```
+	module counter_opt (input clk , input reset , output q);
+	reg [2:0] count;
+	assign q = count[0];
+	always @(posedge clk ,posedge reset)
+	begin
+		if(reset)
+			count <= 3'b000;
+		else
+			count <= count + 1;
+	end
+	endmodule
+```
+<br>Optimized circuit
+![co](https://user-images.githubusercontent.com/62790565/183869004-469d4e60-cd80-4a73-9181-9db84422e066.png)
+<br>Fig 50
+
+##4. DAY4- GLS, blocking vs non-blocking and Synthesis-Simulation mismatch
+###4.1GLS, Synthesis-Simulation mismatch and Blocking, Non-blocking statements
+####4.1.1 GLS Concepts And Flow Using Iverilog
+GLS(Gate level Synthesis) is generating the simulation output by running test bench with netlist file generated from synthesis as design under test. Netlist is logically same as RTL code, therefore, same test bench can be used for it.We perform this to verify logical correctness of the design after synthesizing it. Also ensuring the timing of the design is met.
+<br>Below picture gives an insight of the procedure. Here while using iverilog, we also include gate level verilog models to generate GLS simulation.
+![gls](https://user-images.githubusercontent.com/62790565/183870267-82c8393a-6ec8-462f-bcf7-44d9015262c3.png)
+<br>Fig 51
+
+#### 4.1.2 Synthesis Simulation Mismatch
+There are three main reasons for Synthesis Simulation Mismatch:
+- Missing sensitivity list in always block
+- Blocking vs Non-Blocking Assignments
+- Non standard Verilog coding
+
+<br>Missing sensitivity list in always block:
+
+<br>If the consider - Example-2, we can see the only sel is mentioned in the sensitivity list. During the simulation, the waveforms will resemble a latched output but the simulation of netlist will not infer this as the synthesizer will only look at the statements with in the procedural block and not the sensitivity list.As the synthesizer doen't look for sensitivity list and it looks only for the statements in procedural block, it infers correct circuit and if we simulate the netlist code, there will be a synthesis simulation mismatch.
+<br>To avoid the synthesis and simulation mismatch. It is very important to check the behaviour of the circuit first and then match it with the expected output seen in simulation and make sure there are no synthesis and simulation mismatches. This is why we use GLS.
+
+#### 4.1.3 Blocking and Non-Blocking statements in verilog
+Blocking statements execute the statemetns in the order they are written inside the always block. Non-Blocking statements execute all the RHS and once always block is entered, the values are assigned to LHS. This will give mismatch as sometimes, improper use of blocking statements can create latches.
+
+### Labs on GLS and synthesis-simulation mismatch
+Example 1
+<br>Code
+```
+module ternary_operator_mux (input i0 , input i1 , input sel , output y);
+	assign y = sel?i1:i0;
+endmodule
+```
+<br>Simulation 
+![gl1](https://user-images.githubusercontent.com/62790565/183882685-8d7a42eb-236e-4a57-ac3e-8f9f72f6380c.png)
+<br>Fig 52
+
+<br>Synthesis
+![sgl1](https://user-images.githubusercontent.com/62790565/183882853-9e870804-1ecc-4bc3-a371-198868735af6.png)
+<br>Fig 53
+
+<br>Netlist Simulation
+![ngl1](https://user-images.githubusercontent.com/62790565/183883505-8db3e0fb-a29b-4392-8e91-6430b151289a.png)
+<br>Fig 54
+
+<br>Example 2
+<br>Code
+```
+module bad_mux (input i0 , input i1 , input sel , output reg y);
+	always @ (sel)
+	begin
+		if(sel)
+			y <= i1;
+		else 
+			y <= i0;
+	end
+endmodule
+```
+<br>Simulation
+![gl2](https://user-images.githubusercontent.com/62790565/183883852-2f4a3ada-0ad3-4ce9-ad15-049d9fb8311e.png)
+<br>Fig 55
+
+<br>Netlist Simulation
+![ngl2](https://user-images.githubusercontent.com/62790565/183884041-4a0eeda3-1687-4055-a1dd-39c42e5f3b60.png)
+<br>Fig 54
+
+<br>Sysnthesis simulation mismatch
+![mis1](https://user-images.githubusercontent.com/62790565/183884649-e73d1d6f-fb55-4fd8-a499-f466240b8c52.JPG)
+<br>Fig 55
+
+###4.3. Lab on Synthesis Simulation Mismatch for Blocking Statement
+Here the output is depending on the past value of x which is dependednt on a and b and it appears like a flop.
+<br>Example 1
+<br>Code
+```
+module blocking_caveat (input a , input b , input  c, output reg d); 
+reg x;
+always @ (*)
+	begin
+	d = x & c;
+	x = a | b;
+end
+endmodule
+```
+
+<br>Simulation
+![bl1](https://user-images.githubusercontent.com/62790565/183885115-83da01a7-55b3-461f-93bc-95c2dab6f069.png)
+<br>Fig 56
+
+<br>Netlist simulation
+![nbl1](https://user-images.githubusercontent.com/62790565/183885341-a841d833-13a9-4dc2-b12c-833249c8380e.png)
+<br>Fig 57
+
+<br>Simulation mismatch
+![mis2](https://user-images.githubusercontent.com/62790565/183885550-7a1a87b7-3f10-4b8e-9a26-16f1d3c57ea9.JPG)
+<br>Fig 58
+
+##5. DAY5- if, case, for loop and for generate
+###5.1. If and Case constructs
+####5.1.1 If construct
+The construct if is mainly used to create priority logic. In a nested if else construct, the conditions are given priority from top to bottom. Only if the condition is satisfied, if statement is executed and the compiler comes out of the block. If condition fails, it checks for next condition and so on as shown below.
+<br>Syntax for nested if else
+```
+if (<condition 1>)
+begin
+-----------
+-----------
+end
+else if (<condition 2>)
+begin
+-----------
+-----------
+end
+else if (<condition 3>)
+.
+.
+.
+```
+<br>Dangers with If
+<br>If use a bad coding style i.e, using incomplete if else constructs will infer a latch. We definetly don't require an unwanted latch in a combinational circuit. When an incomplete construct is used, if all the conditions are failed, the input is latched to the output and hence we don't get desired output unless we need a latch.
+
+#### 6.1.2. Case construct
+In case construct, the execution checks for all the case statements and whichever satisfies the statement, that particular statement is executed.If there is no match, the default statement is executed. But here unlike if construct, the execution doesn't stop once statement is satisfied, but it continues further.
+<br>Syntax for case construct
+```
+case(statement)
+  case1: begin
+       --------
+	 --------
+	 end
+ case2: begin
+	     --------
+	 --------
+	 end
+ default:
+ endcase
+ ```
+ <br>Dangers with case
+ <br>Caveats in case occur due to two reasons. One is incomplete case statements and the other is partial assignments in case statements.
+ 
+ ###6.2 
+
+
+
 
 
 
