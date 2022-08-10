@@ -37,9 +37,10 @@
   * [5.2. Labs on incomplete if](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#52-labs-on-incomplete-if)<br>
   * [5.3. Labs on incomplete overlapping case](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#53-labs-on-incomplete-overlapping-case)<br>
   * [5.4. For Loop and For Generate For Loop](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#55-for-loop-and-for-generate)<br>
-    - [5.4.1. Labs on for loop and for generate](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#551-labs-on-for-loop-and-for-generate)
-[6. Word of Thanks](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#word-of-thanks) 
-
+    - [5.4.1. Labs on for loop and for generate](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#551-labs-on-for-loop-and-for-generate)<br>
+[Contributors](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#word-of-thanks)<br>
+[Acknowledgement]
+[Contact Information]
 
 ## 1. Day 1 - Introduction to Verilog RTL design and synthesis
 ### 1.1. Introduction to open-source simulator iverilog
@@ -1277,5 +1278,13 @@ endmodule
 ![nfor4](https://user-images.githubusercontent.com/62790565/183920762-84191856-728b-4551-8660-2dfa4422e6da.png) 
 <br>Fig 82
 
-## Word of Thanks
-I would like to thanks the team of VLSI System Design and Chipspirit for the collaborative workshop. The sessions are well structure and I'm looking forward for future events. My special thanks to Mr. Kunal and Mr. Shon Taware for helping us out with the flow and technical issues. I wish VSD team and Chipspirit team all the very best for your MAKE IN INDIA vision.		
+## Contributors
+- Banda Anusha
+- Kunal Ghosh
+
+## Acknowledgement
+A well structured workshop for individuals who is aspiring to start their career in VLSI. Heartfelt thanks to the team of VLSI System Design for this wonderful workshop, lots to be learnt and looking forward for more such workshops. Special thanks to Kunal Ghosh for helping throughout the workshop and ease for flow.
+		
+## Contact Information
+- Banda Anusha, Post Graduate student, International Institute of Information Technology, Bangalore Banda.Anusha@iiitb.ac.in.
+- Kunal Ghosh,Director, VSD Corp. Pvt. Ltd. kunalghosh@gmail.com.		
