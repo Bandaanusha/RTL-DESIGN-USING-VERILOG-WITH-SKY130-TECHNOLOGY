@@ -36,6 +36,7 @@
  3.2 Combinational logic optimizations
  3.3 Sequential logic optimizations
  3.4 Sequential optimizations for unused outputs
+ 
 ```
 ## 1. Day1 - Introduction to Verilog RTL design and synthesis
 ### 1.1. SKY130RTL D1SK1 - Introduction to open-source simulator iverilog
