@@ -862,16 +862,170 @@ case(statement)
  default:
  endcase
  ```
- <br>Dangers with case
- <br>Caveats in case occur due to two reasons. One is incomplete case statements and the other is partial assignments in case statements.
+<br>Dangers with case
+<br>Caveats in case occur due to two reasons. One is incomplete case statements and the other is partial assignments in case statements.
  
- ###6.2 
+### 5.2 Labs on incomplete if
+This incomplete if construct forms a connection between i0 and output y i.e, D-latch with input as i1 and i0 will be the enable for it.
+<br>Example 1
+<br>Code
+```
+module incomp_if (input i0 , input i1 , input i2 , output reg y);
+always @ (*)
+begin
+	if(i0)
+		y <= i1;
+end
+endmodule	
+```
+<br>Simulated waveforms	
+![if1](https://user-images.githubusercontent.com/62790565/183900400-2b804b7e-8b2c-4f5f-9605-1d3e7bb6388c.png)
+<br> Fig 59
 
+<br>Synthesis
+![sif1](https://user-images.githubusercontent.com/62790565/183900649-10da0138-0d2c-4f69-a84a-6b8b50746fcc.png)
+<br>Fig 60
 
+<br>Example 2
+The below code is equivalent to two 2:1 mux with i0 and i2 as select lines with i1 and i3 as inputs respectively. Here as well, the output is connected back to input in the form of a latch with an enable input of OR of i0 and i2.	
+<br>Code
+```
+module incomp_if2 (input i0 , input i1 , input i2 , input i3, output reg y);
+	always @ (*)
+	begin
+		if(i0)
+			y <= i1;
+		else if (i2)
+			y <= i3;
+	end
+endmodule
+```
+	
+<br>Simulation waveforms	
+![if2](https://user-images.githubusercontent.com/62790565/183901341-18c138eb-0292-43f2-93a5-5dccb07b12f3.png)
+<br>Fig	61
+	
+<br>Synthesis	
+![sif2](https://user-images.githubusercontent.com/62790565/183901590-03ddbe7a-6b67-4777-a023-4f7a292e61ca.png)
+<br>Fig 62
 
+### 6.3 Labs on incomplete overlapping case
+<br>Example 1	
+<br>This is an example of incomplete case where other two combinations 10 and 11 were not included. This is infer a latch for the multiplexer and connect i2 and i3 with the output.
+	
+<br>Code
+```
+module incomp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
+	always @ (*)
+	begin
+	case(sel)
+		2'b00 : y = i0;
+		2'b01 : y = i1;
+	endcase
+	end
+endmodule
+```	
 
+<Simulaion waveforms>
+![case1](https://user-images.githubusercontent.com/62790565/183903890-bb0943d0-1fe0-43bb-a336-583298892729.png)
+<br>Fig 63	
+	
+<Synthesis>	
+![scase1](https://user-images.githubusercontent.com/62790565/183904074-09eeca19-2760-47e6-80cb-1aa3254660c9.png)
+<br>Fig 64
+	
+<br>Example 2
+<br>This is the case of complete case statements as the default case is given. If the actual case statements don't execute, the compiler directly executes the default statements and a latch is not inferred.
+<br>Code	
+```
+module comp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : y = i0;
+		2'b01 : y = i1;
+		default : y = i2;
+	endcase
+end
+endmodule
+```	
+<br>Simulation waaveforms	
+![case1](https://user-images.githubusercontent.com/62790565/183904578-88cc944a-d882-4e49-a5f0-3a33b0036a41.png)
+<br>Fig 65	
 
+<br>Synthesis
+![scase2](https://user-images.githubusercontent.com/62790565/183904877-7d8b4ef9-f35f-4284-8ea8-3f994d0e73a7.png
+<br>Fig 66
 
+<br>Example 3
+<br>In the below example, y is present in all the case statements and it had particular outut for all cases. There no latch is inferred in case of y. When it comes to x, it is not assigned for the input 01, therefore a latch is inferred here.
+<br>Code
+```
+module partial_case_assign (input i0 , input i1 , input i2 , input [1:0] sel, output reg y , output reg x);
+always @ (*)
+begin
+	case(sel)
+		2'b00 : begin
+			y = i0;
+			x = i2;
+			end
+		2'b01 : y = i1;
+		default : begin
+	         	  x = i1;
+			  y = i2;
+		 	 end
+	endcase
+end
+endmodule	
+```	
+<br>Synthesis	
+![scase3](https://user-images.githubusercontent.com/62790565/183905565-ed739ad5-f6d7-4565-a23a-e8878538130b.png)
+<br>Fig 67
 
+<br>Example 4	
+<br>Code
+```
+module bad_case (input i0 , input i1, input i2, input i3 , input [1:0] sel, output reg y);
+always @(*)
+begin
+	case(sel)
+		2'b00: y = i0;
+		2'b01: y = i1;
+		2'b10: y = i2;
+		2'b1?: y = i3;
+		//2'b11: y = i3;
+	endcase
+end
+endmodule
+	
+```
+<br>Simulation waveforms
+![case4](https://user-images.githubusercontent.com/62790565/183906145-82d47508-8b17-4550-a33d-ef16b80b082b.png)
+<br>Fig 68
+	
+<br>Synthesis	
+![scase4](https://user-images.githubusercontent.com/62790565/183906269-8c770602-f04c-4c22-ac28-a68e9f04e86a.pn9)
+<br>Fig 69
 
+<br>Netlist Simulation	
+![ncase4](https://user-images.githubusercontent.com/62790565/183906756-d9632ada-88cb-4cf2-b1a4-38f7cdc4ec8d.png)
+<br>Fig 70
 
+###5.5. For Loop and For Generate
+For Loop
+- For look is used in always block
+- It is used for excecuting expressions alone
+
+<br>Generate For loop
+- Generate for loop is used for instantaing hardware
+- It should be used only outside always block
+
+<br>For loop can be used to generate larger circuits like 256:1 multiplexer or 1-256 demultiplexer where the coding style of smaller mux is not feasible and can have human errors since we would need to include huge number of combinations.
+
+<br>For Generate can be used to instantiate any number of sub modules with in a top module. For example, if we need a 32 bit ripple carry adder, instead of instantiating 32 full adders, we can write a generate for loop and connect the full adders appropriately.	
+	
+####5.5.1. Labs on for loop and for generate
+
+	
+
+	
