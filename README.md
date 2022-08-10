@@ -1,44 +1,45 @@
 # RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY
 ## Table of Contents
 ```
- [1. Day 1 - Introduction to Verilog RTL design and synthesis]
-  * [1.1. Introduction to open-source simulator iverilog]
-    - [1.1.1. Introduction iverilog design and test bench]
-  * [1.2.  Labs using iverilog and gtkwave]
-  * [1.3. Introduction to Yosys and Logic synthesis]
-    - [1.3.1. Introduction to yosys]
-    - [1.3.2. Introduction to logic synthesis]
-  * [1.4.Labs using Yosys and SKY130PDK's]
- [2. Day 2 -Timing libs, hierarchial vs flat synthesis and efficient flop coding styles]
-  * [2.1. Introduction to timing.libs]
-    - [2.1.1. Introduction to dot lib]
-  * [2.2. Hierarchial vs Flat Synthesis]
-    - [2.2.1. Lab on hierarchial vs flat synthesis part1]
-    - [2.2.2. Lab on hierarchial vs flat synthesis part2]
-  * [2.3. Various Flop Coding Styles and optimization]
-    - [2.3.1. SKY130RTL D2SK3 L1 Why Flops and Flop coding styles]
-    - [2.3.2. Labs on flop synthesis simulations]
-    - [2.3.3. Intresting optimizations]
-[3. Day 3 - combinational and sequential optimizations]
- * [3.1. Introduction to optimizations]
- * [3.2. Combinational logic optimizations]
- * [3.3. Sequential logic optimizations]
+ [1. Day 1 - Introduction to Verilog RTL design and synthesis](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#1-day-1---introduction-to-verilog-rtl-design-and-synthesis)
+  * [1.1. Introduction to open-source simulator iverilog](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#11-introduction-to-open-source-simulator-iverilog)
+    - [1.1.1. Introduction iverilog design and test bench]https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#111-introduction-iverilog-design-and-test-bench()
+  * [1.2.  Labs using iverilog and gtkwave](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#labs-using-iverilog-and-gtkwave)
+  * [1.3. Introduction to Yosys and Logic synthesis](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#13-introduction-to-yosys-and-logic-synthesis)
+    - [1.3.1. Introduction to yosys](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#131-introduction-to-yosys)
+    - [1.3.2. Introduction to logic synthesis](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#132-introduction-to-logic-synthesis)
+  * [1.4.Labs using Yosys and SKY130PDK's](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#14-labs-using-yosys-and-sky130pdks)
+ [2. Day 2 -Timing libs, hierarchial vs flat synthesis and efficient flop coding styles](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#2-day-2-timing-libs-hierarchial-vs-flat-synthesis-and-efficient-flop-coding-styles)
+  * [2.1. Introduction to timing.libs](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#21-introduction-to-timinglibs)
+    - [2.1.1. Introduction to dot lib](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#211-sky130rtl-d2sk1-l1-lab4-introduction-to-dot-lib-part1)
+  * [2.2. Hierarchial vs Flat Synthesis](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#22-hierarchial-vs-flat-synthesis)
+    - [2.2.1. Lab on hierarchial vs flat synthesis part1](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#221-lab-on-hierarchial-vs-flat-synthesis-part1)
+    - [2.2.2. Lab on hierarchial vs flat synthesis part2](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#222-lab-on-hierarchial-vs-flat-synthesis-part2)
+  * [2.3. Various Flop Coding Styles and optimization](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#23-various-flop-coding-styles-and-optimization)
+    - [2.3.1. SKY130RTL D2SK3 L1 Why Flops and Flop coding styles](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#231-why-flops-and-flop-coding-styles23)
+    - [2.3.2. Labs on flop synthesis simulations](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#231-why-flops-and-flop-coding-styles23)
+    - [2.3.3. Intresting optimizations](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#233-intresting-optimizations)
+[3. Day 3 - combinational and sequential optimizations](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#3-day-3---combinational-and-sequential-optimizations)
+ * [3.1. Introduction to optimizations](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#31-introduction-to-optimizations)
+ * [3.2. Combinational logic optimizations](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#32-combinational-logic-optimizations)
+ * [3.3. Sequential logic optimizations]()
  * [3.4. Sequential optimizations for unused outputs]
-[4. Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch]
- * [4.1. GLS, Synthesis-Simulation mismatch and Blocking, Non-blocking statements]
-   - [4.1.1. GLS Concepts And Flow Using Iverilog]
-   - [4.1.2. Synthesis Simulation Mismatch]
-   - [4.1.3.Blocking and Non-Blocking statements in verilog]
- * [4.2. Labs on GLS and synthesis-simulation mismatch]
- * [4.3. Lab on Synthesis Simulation Mismatch for Blocking Statement
- [5.Day 5 - if, case, for loop and for generate]
-  * [5.1. If and Case constructs]
-    - [5.1.1. If construct]
-    - [5.1.2. Case construct]
-  * [5.2. Labs on incomplete if]
-  * [5.3. Labs on incomplete overlapping case]
-  * [5.4. For Loop and For Generate For Loop]
-    - [5.4.1. Labs on for loop and for generate]
+[4. Day 4 - GLS, blocking vs non-blocking and Synthesis-Simulation mismatch](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#4-day4--gls-blocking-vs-non-blocking-and-synthesis-simulation-mismatch)
+ * [4.1. GLS, Synthesis-Simulation mismatch and Blocking, Non-blocking statements](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#41-gls-synthesis-simulation-mismatch-and-blocking-non-blocking-statements)
+   - [4.1.1. GLS Concepts And Flow Using Iverilog](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#411-gls-concepts-and-flow-using-iverilog)
+   - [4.1.2. Synthesis Simulation Mismatch](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#412-synthesis-simulation-mismatch)
+   - [4.1.3.Blocking and Non-Blocking statements in verilog](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#413-blocking-and-non-blocking-statements-in-verilog)
+ * [4.2. Labs on GLS and synthesis-simulation mismatch](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#labs-on-gls-and-synthesis-simulation-mismatch)
+ * [4.3. Lab on Synthesis Simulation Mismatch for Blocking Statement()
+ [5.Day 5 - if, case, for loop and for generate](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#5-day5--if-case-for-loop-and-for-generate)
+  * [5.1. If and Case constructs](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#51-if-and-case-constructs)
+    - [5.1.1. If construct](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#511-if-construct)
+    - [5.1.2. Case construct](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#512-case-construct)
+  * [5.2. Labs on incomplete if](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#52-labs-on-incomplete-if)
+  * [5.3. Labs on incomplete overlapping case](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#53-labs-on-incomplete-overlapping-case)
+  * [5.4. For Loop and For Generate For Loop](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#55-for-loop-and-for-generate)
+    - [5.4.1. Labs on for loop and for generate](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#551-labs-on-for-loop-and-for-generate)
+ [6. Word of Thanks] 
  ```
 ## 1. Day 1 - Introduction to Verilog RTL design and synthesis
 ### 1.1. Introduction to open-source simulator iverilog
@@ -690,7 +691,7 @@ endmodule
 ![mmo](https://user-images.githubusercontent.com/62790565/183864423-6e2056c5-46a0-4c8e-b6f8-f700116fb888.png)
 <br>Fig 43
 
-###3.3 Sequential logic optimizations
+### 3.3 Sequential logic optimizations
 <br>Example 1
 <br>Code
 ```
@@ -796,7 +797,7 @@ module dff_const3(input clk, input reset, output reg q);
 ![soo3](https://user-images.githubusercontent.com/62790565/183874123-692be01e-de1c-4d7a-95f7-8d0a76134168.png)
 <br>Fig 49
 
-###3.4. Sequential optimizations for unused outputs
+### 3.4. Sequential optimizations for unused outputs
 Example 1
 <br>Code
 ```
@@ -891,7 +892,7 @@ endmodule
 ![mis1](https://user-images.githubusercontent.com/62790565/183884649-e73d1d6f-fb55-4fd8-a499-f466240b8c52.JPG)
 <br>Fig 55
 
-###4.3. Lab on Synthesis Simulation Mismatch for Blocking Statement
+### 4.3. Lab on Synthesis Simulation Mismatch for Blocking Statement
 Here the output is depending on the past value of x which is dependednt on a and b and it appears like a flop.
 <br>Example 1
 <br>Code
@@ -1122,7 +1123,7 @@ endmodule
 ![ncase4](https://user-images.githubusercontent.com/62790565/183906756-d9632ada-88cb-4cf2-b1a4-38f7cdc4ec8d.png)
 <br>Fig 70
 
-### 5.5. For Loop and For Generate
+### 5.4. For Loop and For Generate
 For Loop
 - For look is used in always block
 - It is used for excecuting expressions alone
@@ -1135,7 +1136,7 @@ For Loop
 
 <br>For Generate can be used to instantiate any number of sub modules with in a top module. For example, if we need a 32 bit ripple carry adder, instead of instantiating 32 full adders, we can write a generate for loop and connect the full adders appropriately.	
 	
-#### 5.5.1. Labs on for loop and for generate
+#### 5.4.1. Labs on for loop and for generate
 Example 1-Mux using generate
 <br>Here for loop is used to design a 4:1 mux. This can also be written using case or if else block, however, for a large size mux, only for loop model is feasible.
 <br>Code
