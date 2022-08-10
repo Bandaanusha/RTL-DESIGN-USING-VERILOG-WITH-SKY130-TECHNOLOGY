@@ -42,8 +42,11 @@
   * [5.3. Labs on incomplete overlapping case](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#53-labs-on-incomplete-overlapping-case)<br>
   * [5.4. For Loop and For Generate For Loop](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#55-for-loop-and-for-generate)<br>
     - [5.4.1. Labs on for loop and for generate](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#551-labs-on-for-loop-and-for-generate)<br>
+
 [Contributors](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#contributors)<br>
+
 [Acknowledgement](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#acknowledgement)<br>
+
 [Contact Information](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#contact-information)
 
 ## 1. Day 1 - Introduction to Verilog RTL design and synthesis
