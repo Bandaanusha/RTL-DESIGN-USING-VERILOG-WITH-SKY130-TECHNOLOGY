@@ -16,7 +16,7 @@
     - [2.2.1. Lab on hierarchial vs flat synthesis part1](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#221-lab-on-hierarchial-vs-flat-synthesis-part1)<br>
     - [2.2.2. Lab on hierarchial vs flat synthesis part2](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#222-lab-on-hierarchial-vs-flat-synthesis-part2)<br>
   * [2.3. Various Flop Coding Styles and optimization](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#23-various-flop-coding-styles-and-optimization)<br>
-    - [2.3.1. SKY130RTL D2SK3 L1 Why Flops and Flop coding styles](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#231-why-flops-and-flop-coding-styles23)<br>
+    - [2.3.1.Why Flops and Flop coding styles](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#231-why-flops-and-flop-coding-styles23)<br>
     - [2.3.2. Labs on flop synthesis simulations](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#231-why-flops-and-flop-coding-styles23)<br>
     - [2.3.3. Intresting optimizations](https://github.com/Bandaanusha/RTL-DESIGN-USING-VERILOG-WITH-SKY130-TECHNOLOGY#233-intresting-optimizations)<br>
  
